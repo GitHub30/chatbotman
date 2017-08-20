@@ -46,12 +46,20 @@
 
             constructor() {
                 super();
+                let parser = new URL(location.href);
+                this.host = parser.searchParams.has('host') ? parser.searchParams.get('host') : '180.54.60.193:8080';
+
                 let self = this;
                 this.recognition = new webkitSpeechRecognition();
                 this.recognition.lang = 'ja';
                 this.recognition.addEventListener('result', e => {
                     self.$.mic.classList.remove('recording');
-                    this.say(e.results[0][0].transcript);
+                    let xhr = new XMLHttpRequest();
+                    xhr.onload = function(){
+                        self.say(xhr.responseText);
+                    };
+                    xhr.open('GET', 'http://' + self.host + '/talk?q=' + encodeURIComponent(e.results[0][0].transcript));
+                    xhr.send();
                 });
             }
 
