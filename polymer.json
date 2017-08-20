@@ -1,0 +1,18 @@
+{
+  "extraDependencies": [
+    "manifest.json",
+    "favicon.ico",
+    "images/*",
+    "bower_components/webcomponentsjs/*.js"
+  ],
+  "lint": {
+    "rules": [
+      "polymer-2"
+    ]
+  },
+  "builds": [
+    {
+      "preset": "es5-bundled"
+    }
+  ]
+}
